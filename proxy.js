@@ -10,6 +10,14 @@ app.use((req, res, next) => {
     next();
 });
 
+// Serve static files from the current directory (e.g., index.html, styles.css)
+app.use(express.static(__dirname));
+
+// Route to serve the main HTML file (index.html)
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "index.html")); // Ensure index.html is in the same directory as this file
+});
+
 app.post("/proxy", async (req, res) => {
     const fetch = (await import("node-fetch")).default;
 
